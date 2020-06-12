@@ -11,12 +11,17 @@
 	|__,|___|___| |_| |___|__|__|___|_|_|_|___|___|___|_| |___|___|_|_|
 		by Matteo Spinelli ~ http://cubiq.org <-- No longer there :<
 		Upgraded for PWA Support by Chris Love ~ https://love2dev.com/
+		USE PWA Starter to scaffold your core PWA files ~ https://pwastarter.love2dev.com/
 	*/
 
 	// load session
 	var appID = "com.love2dev.addtohome",
 		nativePrompt = false,
 		session = localStorage.getItem( appID );
+
+	var dFlex = "d-flex",
+		dBlock = "d-block",
+		dNone = "d-none";
 
 	if ( session && session.added ) {
 		return;
@@ -49,13 +54,7 @@
 
 	}
 
-	var platform = {},
-		defaultPrompt = {
-			title: "Install this PWA?",
-			src: "imgs/pwa-logo-50x50.png",
-			cancelMsg: "Not Now",
-			installMsg: "Install"
-		};
+	var platform = {};
 
 	function checkPlatform() {
 
@@ -215,7 +214,8 @@
 
 			} else {
 
-				var promptTarget = Object.assign( {}, defaultPrompt, _instance.options.customPrompt, _instance.options.prompt[ target ] );
+				var promptTarget = Object.assign( {},
+					_instance.options.customPrompt, _instance.options.prompt[ target ] );
 
 				if ( promptTarget.targetUrl ) {
 
@@ -225,7 +225,7 @@
 
 					var ath_body = ath_wrapper.querySelector( _instance.options.promptDlg.body );
 
-					if ( promptTarget.imgs && promptTarget.imgs.length > 0 ) {
+					if ( ath_body && promptTarget.imgs && promptTarget.imgs.length > 0 ) {
 
 						ath_body.innerHTML = "";
 						ath_body.classList.add( _instance.options.athGuidance );
@@ -270,40 +270,6 @@
 
 	}
 
-	//can be used to calculate the next prime number, a possible way to calculate when to next prompt
-	function nextPrime( value ) {
-
-		while ( true ) {
-
-			var isPrime = true;
-
-			if ( isNaN( value ) ) {
-				value = 0;
-			}
-
-			//increment the number by 1 each time
-			value += 1;
-
-			var squaredNumber = Math.sqrt( value );
-
-			//start at 2 and increment by 1 until it gets to the squared number
-			for ( var i = 2; i <= squaredNumber; i++ ) {
-
-				//how do I check all i's?
-				if ( value % i == 0 ) {
-					isPrime = false;
-					break;
-				}
-
-			}
-
-			if ( isPrime ) {
-				return value;
-			}
-
-		}
-	}
-
 	// singleton
 	var _instance;
 
@@ -332,7 +298,6 @@
 		startDelay: 1, // display the message after that many seconds from page load
 		lifespan: 15, // life of the message in seconds
 		displayPace: 1440, // minutes before the message is shown again (0: display every time, default 24 hours)
-		displayNextPrime: false,
 		mustShowCustomPrompt: false,
 		maxDisplayCount: 0, // absolute maximum number of times the message will be shown to the user (0: no limit)
 		validLocation: [], // list of pages where the message will be shown (array of regexes)
@@ -346,9 +311,9 @@
 		customPrompt: {}, //allow customization of prompt content
 		athWrapper: ".ath-container",
 		athGuidance: "ath-guidance",
-		showClasses: [ "animated", "d-flex" ],
-		showClass: "d-flex",
-		hideClass: "d-none",
+		showClasses: [ "animated", dFlex ],
+		showClass: dFlex,
+		hideClass: dNone,
 		promptDlg: {
 			title: ".ath-banner-title",
 			body: ".ath-banner",
@@ -363,7 +328,7 @@
 		prompt: {
 			"native": {
 				targetUrl: undefined,
-				showClasses: [ "fadeInUp", "right-banner" ],
+				showClasses: [],
 				action: {
 					"ok": "Install",
 					"cancel": "Not Now"
@@ -371,9 +336,7 @@
 			},
 			"edge": {
 				targetUrl: undefined,
-				showClasses: [ "edge-wrapper",
-					"animated", "fadeIn", "d-block", "right-banner"
-				],
+				showClasses: [ "edge-wrapper", "d-block" ],
 				imgs: [ {
 					src: "imgs/edge-a2hs-icon.png",
 					alt: "Tap the Add to Homescreen Icon"
@@ -381,9 +344,7 @@
 			},
 			"chromium": {
 				targetUrl: undefined,
-				showClasses: [ "chromium-wrapper",
-					"animated", "fadeIn", "d-block", "right-banner"
-				],
+				showClasses: [ "chromium-wrapper", "d-block" ],
 				imgs: [ {
 					src: "imgs/chromium-guidance.png",
 					alt: "Tap the Add to Homescreen Icon"
@@ -391,7 +352,7 @@
 			},
 			"iphone": {
 				targetUrl: undefined,
-				showClasses: [ "iphone-wrapper", "animated", "fadeIn", "d-block" ],
+				showClasses: [ "iphone-wrapper", "d-block" ],
 				imgs: [ {
 						src: "imgs/ios-safari-share-button-highlight.jpg",
 						alt: "Tap the Share Icon"
@@ -414,7 +375,7 @@
 			},
 			"ipad": {
 				targetUrl: undefined,
-				showClasses: [ "ipad-wrapper", "animated", "fadeInUp", "d-block" ],
+				showClasses: [ "ipad-wrapper", "d-block" ],
 				imgs: [ {
 					src: "imgs/safari-ipad-share-a2hs-right.jpg",
 					alt: "Tap the Add to Homescreen Icon"
@@ -422,9 +383,7 @@
 			},
 			"firefox": {
 				targetUrl: undefined,
-				showClasses: [ "firefox-wrapper",
-					"animated", "fadeIn", "d-block"
-				],
+				showClasses: [ "firefox-wrapper", "d-block" ],
 				imgs: [ {
 					src: "imgs/firefox-a2hs-icon.png",
 					alt: "Tap the Add to Homescreen Icon"
@@ -432,9 +391,7 @@
 			},
 			"samsung": {
 				targetUrl: undefined,
-				showClasses: [ "samsung-wrapper",
-					"animated", "fadeIn", "d-block"
-				],
+				showClasses: [ "samsung-wrapper", "d-block" ],
 				imgs: [ {
 					src: "imgs/samsung-internet-a2hs-icon.png",
 					alt: "Tap the Add to Homescreen Icon"
@@ -442,9 +399,7 @@
 			},
 			"opera": {
 				targetUrl: undefined,
-				showClasses: [ "opera-home-screen-wrapper",
-					"animated", "fadeIn", "d-block"
-				],
+				showClasses: [ "opera-home-screen-wrapper", "d-block" ],
 				imgs: [ {
 					src: "imgs/opera-add-to-homescreen.png",
 					alt: "Tap the Add to Homescreen Icon"
@@ -462,7 +417,7 @@
 		optedout: false, // has the user opted out
 		added: false, // has been actually added to the homescreen
 		sessions: 0,
-		nextSession: 0 //tie this to nextPrime Counter
+		nextSession: 0
 	};
 
 	session = session ? JSON.parse( session ) : _defaultSession;
@@ -477,7 +432,11 @@
 
 		_beforeInstallPrompt = evt;
 
-		_instance._delayedShow();
+		if ( _instance ) {
+
+			_instance._delayedShow();
+
+		}
 
 	}
 
@@ -516,7 +475,13 @@
 
 		if ( ath_wrapper ) {
 
-			ath_wrapper.classList.remove( ..._instance.options.showClasses );
+			for ( var i = 0; i < _instance.options.showClasses.length; i++ ) {
+
+				ath_wrapper.classList.remove( _instance.options.showClasses[ i ] );
+
+			}
+
+			ath_wrapper.classList.add( dNone );
 
 		}
 
@@ -543,7 +508,6 @@
 		return false;
 	};
 
-	// TODO refactor long class method into smaller, more manageable functions
 	ath.Class = function ( options ) {
 
 		// class methods
@@ -862,7 +826,7 @@
 
 						ath_wrapper.classList.remove( _instance.options.hideClass );
 
-						var promptTarget = Object.assign( {}, defaultPrompt, _instance.options.customPrompt, _instance.options.prompt[ target ] );
+						var promptTarget = Object.assign( {}, _instance.options.customPrompt, _instance.options.prompt[ target ] );
 
 						if ( promptTarget.showClasses ) {
 
@@ -880,34 +844,15 @@
 
 						}
 
-						//						ath_wrapper.classList.add( ...promptTarget.showClasses );
-
-						var ath_title = ath_wrapper.querySelector( _instance.options.promptDlg.title ),
-							ath_logo = ath_wrapper.querySelector( _instance.options.promptDlg.logo ),
-							ath_cancel = ath_wrapper.querySelector( _instance.options.promptDlg.cancel ),
+						var ath_cancel = ath_wrapper.querySelector( _instance.options.promptDlg.cancel ),
 							ath_install = ath_wrapper.querySelector( _instance.options.promptDlg.install );
-
-						if ( ath_title && promptTarget.title ) {
-							ath_title.innerText = promptTarget.title;
-						}
-
-						if ( ath_logo && promptTarget.src ) {
-							ath_logo.src = promptTarget.src;
-							ath_logo.alt = promptTarget.title || "Install PWA";
-						}
 
 						if ( ath_install ) {
 							ath_install.addEventListener( "click", platform.handleInstall );
-							ath_install.classList.remove( _instance.options.hideClass );
-							ath_install.innerText = promptTarget.installMsg ? promptTarget.installMsg :
-								( ( promptTarget.action && promptTarget.action.ok ) ? promptTarget.action.ok : _instance.options.promptDlg.action.ok );
 						}
 
 						if ( ath_cancel ) {
 							ath_cancel.addEventListener( "click", platform.cancelPrompt );
-							ath_cancel.classList.remove( _instance.options.hideClass );
-							ath_cancel.innerText = promptTarget.cancelMsg ? promptTarget.cancelMsg :
-								( ( promptTarget.action && promptTarget.action.cancel ) ? promptTarget.action.cancel : _instance.options.promptDlg.action.cancel );
 						}
 
 					}
@@ -928,12 +873,6 @@
 				// increment the display count
 				session.lastDisplayTime = Date.now();
 				session.displayCount++;
-
-				if ( _instance.options.displayNextPrime ) {
-
-					session.nextSession = nextPrime( session.sessions );
-
-				}
 
 				this.updateSession();
 
@@ -988,7 +927,9 @@
 		clearDisplayCount: function () {
 			session.displayCount = 0;
 			this.updateSession();
-		}
+		},
+
+		platform: platform
 
 	};
 

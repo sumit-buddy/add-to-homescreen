@@ -81,7 +81,10 @@
 		platform.isInWebAppiOS = ( window.navigator.standalone === true );
 		platform.isInWebAppChrome = ( window.matchMedia( '(display-mode: standalone)' ).matches );
 		platform.isMobileSafari = platform.isIDevice && _ua.indexOf( 'Safari' ) > -1 && _ua.indexOf( 'CriOS' ) < 0;
-		platform.isStandalone = platform.isInWebAppiOS || platform.isInWebAppChrome;
+		platform.isStandalone = window.matchMedia( '(display-mode: standalone)' ).matches ||
+			window.navigator.standalone === true ||
+			platform.isInWebAppiOS ||
+			platform.isInWebAppChrome;
 		platform.isiPad = ( platform.isMobileSafari && _ua.indexOf( 'iPad' ) > -1 );
 		platform.isiPhone = ( platform.isMobileSafari && _ua.indexOf( 'iPad' ) === -1 );
 		platform.isCompatible = ( platform.isChromium || platform.isMobileSafari ||
@@ -880,7 +883,7 @@
 
 						}
 
-						//						ath_wrapper.classList.add( ...promptTarget.showClasses );
+						//ath_wrapper.classList.add( ...promptTarget.showClasses );
 
 						var ath_title = ath_wrapper.querySelector( _instance.options.promptDlg.title ),
 							ath_logo = ath_wrapper.querySelector( _instance.options.promptDlg.logo ),
@@ -988,7 +991,9 @@
 		clearDisplayCount: function () {
 			session.displayCount = 0;
 			this.updateSession();
-		}
+		},
+
+		platform: platform
 
 	};
 

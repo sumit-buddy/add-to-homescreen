@@ -200,6 +200,10 @@
             target.innerText += "\r\nstandalone: " + window.navigator.standalone;
         }
 
+        if ( ath.canPrompt() ) {
+            alert( "install me baby!" );
+        }
+
         function clearToken() {
 
             ath.clearSession(); // reset the user session
