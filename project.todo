@@ -1,36 +1,18 @@
 Prompt Script:
-    ✔ display according to rules @done (4/24/2019, 9:38:46 AM)
-    ✔ rely on beforeinstallprompt event and native prompt @done (4/21/2019, 10:32:00 AM)
-    ✔ display modal prompt to trigger native prompt @done (4/21/2019, 10:33:04 AM)
-    ✔ display modal prompt to guide user to browser install button @done (4/21/2019, 10:33:37 AM)
-    ✔ add external trigger method - must check if prompt can be displayed 1st @done (5/1/2019, 1:40:04 PM)
-    ✔ add custom criteria method @done (4/30/2019, 11:01:24 AM)
-    ✔ add app install custom method @done (4/30/2019, 10:45:39 AM)
-    ✔ change libary structure to expose main method and use local methods (my normal style) @done (5/1/2019, 1:40:08 PM)
     ☐ add ability to log to external method
     ☐ modify prompt configuration to allow multiple prompts on a page
+    ☐ prompt callback should indicate platform
+    if beforeinstallprompt then indicate so client will know how to display guidance and trigger native prompt
 
 Prompt Management:
-    ✔ Complete session (status) object definition @done (4/24/2019, 9:38:44 AM)
-    ✔ persist session @done (4/21/2019, 8:10:58 AM)
-    ✔ update session @done (4/21/2019, 8:11:06 AM)
-    ✔ allow custom rules (only show if [criteria]) @done (4/24/2019, 9:38:42 AM)
 
+    
 Prompt Displays:
-    ✔ General Prompt @high @today @done (4/24/2019, 9:38:32 AM)
-    ✔ iOS Add to Homescreen modal @done (4/24/2019, 9:38:33 AM)
-    ✔ FireFox modal @done (4/24/2019, 9:38:34 AM)
-    ✔ Samsung Internet modal @done (4/24/2019, 9:38:34 AM)
-    ✔ Opera Modal @done (4/24/2019, 9:38:35 AM)
-    ✔ Edge modal @done (4/24/2019, 9:38:35 AM)
-    ✔ updated banner layouts & CSS @done (4/25/2019, 12:31:44 PM)
     ☐ Use mandatory to display a background layer to prevent other interactions until app is instlaled
-    ✔ reset autohide if platform guidance being displayed. Minium of 10 second display @done (5/1/2019, 1:40:33 PM)
     ☐ supress for Opera Desktop
     ☐ change to trigger custom method instead of banner
         - this could be to change the CSS on a menu item or inline promos in articles for example
 
 General Project:
-    ✔ Read Manifest File @low @done (5/27/2019, 4:21:30 PM) - completed in pwa wizard
     ☐ Read Short Name from Manifest File if it is a PWA & only when prompt needs to be displayed  @low
     ☐ trigger a redirect back to the home page for iOS  @low ** get from pwa compat **
