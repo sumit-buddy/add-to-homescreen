@@ -1,18 +1,13 @@
 Prompt Script:
-    ☐ add ability to log to external method
+    ✔ add ability to log to external method @done (7/10/2020, 11:00:53 AM)
+    ☐ separate UI prompt from prompt verification logic
     ☐ modify prompt configuration to allow multiple prompts on a page
-    ☐ prompt callback should indicate platform
-    if beforeinstallprompt then indicate so client will know how to display guidance and trigger native prompt
+    ✔ prompt callback should indicate platform @done (7/10/2020, 11:01:03 AM)
+    ✔ if beforeinstallprompt then indicate so client will know how to display guidance and trigger native prompt @done (7/10/2020, 11:01:14 AM)
 
 Prompt Management:
 
     
-Prompt Displays:
-    ☐ Use mandatory to display a background layer to prevent other interactions until app is instlaled
-    ☐ supress for Opera Desktop
-    ☐ change to trigger custom method instead of banner
-        - this could be to change the CSS on a menu item or inline promos in articles for example
-
 General Project:
     ☐ Read Short Name from Manifest File if it is a PWA & only when prompt needs to be displayed  @low
     ☐ trigger a redirect back to the home page for iOS  @low ** get from pwa compat **
