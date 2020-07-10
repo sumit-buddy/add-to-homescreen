@@ -263,9 +263,6 @@ https: //love2dev.com/blog/beforeinstallprompt/
 
 		_beforeInstallPrompt = evt;
 
-		if ( _instance ) {
-			_delayedShow();
-		}
 	}
 
 	function removeSession( appID ) {

@@ -174,12 +174,15 @@
 
         let $btnCancel = document.querySelector( ".btn-cancel-ath" ),
             $btnInstall = document.querySelector( ".btn-install-ath" ),
+            $ath_prompt = document.querySelector( ".ath-container" ),
             instance,
             session = {};
 
         $btnCancel.addEventListener( "click", e => {
 
             e.preventDefault();
+
+            $ath_prompt.classList.remove( "d-flex" );
 
             handleCancel();
 
@@ -190,6 +193,8 @@
         $btnInstall.addEventListener( "click", e => {
 
             e.preventDefault();
+
+            $ath_prompt.classList.remove( "d-flex" );
 
             handleInstall();
 
@@ -234,8 +239,6 @@
                     session = ses;
                     instance = _instance;
 
-                    let $ath_prompt = document.querySelector( ".ath-container" );
-
                     $ath_prompt.classList.add( "d-flex" );
 
                 },
@@ -254,6 +257,9 @@
                 onCancel: function ( choiceResult ) {
 
                     console.log( "Cancelling" );
+
+                    $ath_prompt.classList.remove( "d-flex" );
+
                     handleCancel();
 
                 },

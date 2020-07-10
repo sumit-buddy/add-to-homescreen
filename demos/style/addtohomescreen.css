@@ -93,7 +93,7 @@
 }
 
 .banner-bottom-center {
-	top: calc(100vh - 72px);
+	bottom: 0;
 }
 
 .ath-guidance img {

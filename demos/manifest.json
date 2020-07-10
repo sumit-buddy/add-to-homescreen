@@ -1,6 +1,6 @@
 {
-    "name": "Love2Dev",
-    "short_name": "Love2Dev",
+    "name": "Add to Homescree",
+    "short_name": "A2HS",
     "icons": [ {
             "src": "meta/windows10/Square71x71Logo.scale-400.png",
             "sizes": "284x284"
