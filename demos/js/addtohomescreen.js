@@ -94,7 +94,11 @@ https: //love2dev.com/blog/beforeinstallprompt/
 					navigator.serviceWorker.getRegistration().then( afterSWCheck );
 				}
 			} else {
-				console.log( "service worker not supported" );
+				writeLog( "service worker not supported" );
+				writeLog(
+					"Add to homescreen: not displaying callout because service workers are not supported"
+				);
+
 			}
 		}
 
@@ -385,15 +389,6 @@ https: //love2dev.com/blog/beforeinstallprompt/
 				);
 				return false;
 			}
-		}
-
-		//using a double negative here to detect if service workers are not supported
-		//if not then don't bother asking to add to install the PWA
-		if ( !( "serviceWorker" in navigator ) ) {
-			writeLog(
-				"Add to homescreen: not displaying callout because service workers are not supported"
-			);
-			return false;
 		}
 
 		// the device is not supported
