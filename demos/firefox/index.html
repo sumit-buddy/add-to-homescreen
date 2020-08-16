@@ -59,33 +59,10 @@
     <script src="js/addtohomescreen.js"></script>
     <script>
         var ath = addToHomescreen( {
-            autostart: true,
-            lifespan: 5,
-            debug: "firefox",
             logging: true,
-            minSessions: 2,
-            onShow: function () {
-                console.log( "showing" );
-            },
-            onInit: function () {
-                console.log( "initializing" );
-            },
-            onAdd: function () {
-                console.log( "adding" );
-            },
-            onInstall: function () {
-                console.log( "Installing" );
-            },
-            onCancel: function () {
-                console.log( "Cancelling" );
-            },
-            customCriteria: true,
-            displayPace: 0,
-            customPrompt: {
-                title: "custom message",
-                src: "https://love2dev.com/meta/android/android-launchericon-48-48.png",
-                cancelMsg: "go away",
-                installMsg: "do it"
+            onCanInstall: function ( platform, instance ) {
+                console.log( "Platform: ", platform );
+                console.log( "Instance: ", instance );
             }
         } );
 
