@@ -25,9 +25,32 @@
 
     <link href="manifest.json" rel="manifest">
 
+    <style>
+        .navbar-light .navbar-nav .nav-link.nav-btn-a2hs {
+            display: none;
+            background-color: darkred;
+            color: white;
+        }
+    </style>
+
 </head>
 
 <body>
+    <header class="bg-white main-header-lg fixed-top d-none d-lg-flex">
+        <nav class="navbar text-dark fixed-top navbar-expand navbar-light bg-transparent col-12">
+            <div class="container mx-1 col-12">
+                <div class="navbar-collapse collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <span class="nav-btn-a2hs nav-link jello animated">
+                                Install This Progressive Web App From the Menu
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <div class="container">
         <br /><br /><br />
@@ -141,7 +164,9 @@
         </div>
 
     </div>
-    <div class="ath-container banner-bottom-center">
+
+
+    <div class="ath-container banner-bottom-center slideInUp animated">
         <div class="ath-banner">
             <div class="ath-banner-cell ath-banner-cell-md">
                 <img src="imgs/pwa-logo-50x50.png" alt="PWA" class="ath-prompt-logo">
@@ -158,7 +183,10 @@
         </div>
     </div>
 
+    <div class="modal animate fadeIn" tabindex="-1" role="dialog"></div>
+
     <script src="js/addtohomescreen.js"></script>
+    <script src="js/a2hs_prompt.js"></script>
     <script>
         let target = document.querySelector( ".log-target" );
 
@@ -168,13 +196,14 @@
 
         function clearToken() {
 
-            ath.clearSession(); // reset the user session
+            a2hsPrompt.clearSession(); // reset the user session
 
         }
 
         let $btnCancel = document.querySelector( ".btn-cancel-ath" ),
             $btnInstall = document.querySelector( ".btn-install-ath" ),
             $ath_prompt = document.querySelector( ".ath-container" ),
+            $a2hs_menu = document.querySelector( ".nav-btn-a2hs" ),
             instance, platform,
             session = {};
 
@@ -238,6 +267,7 @@
             navigator.serviceWorker.register( "/sw.js" );
 
             var ath = addToHomescreen( {
+                appId: "a2hs-demo-pwa",
                 logging: true,
                 onCanInstall: function ( p, instance ) {
                     console.log( "Platform: ", p );
@@ -245,7 +275,13 @@
 
                     platform = p;
 
-                    $ath_prompt.classList.toggle( "d-flex" );
+                    setTimeout( () => {
+
+                        $ath_prompt.classList.toggle( "d-flex" );
+
+                        $a2hs_menu.classList.toggle( "d-flex" );
+
+                    }, 4000 );
 
                 },
                 onBeforeInstallPrompt: function ( platform ) {

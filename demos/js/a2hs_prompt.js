@@ -2,6 +2,11 @@
 /*
 
 This is a usable reference library to demonstrate add to homescreen best practices and integration with the add to homescreen library
+The library works in concert with the add to homescreen library to know if a user can be prompted. If they can be prompted 
+and the logic allows a visible prompt trigger is fired.
+The real magic comes from the library maintaining the user prompt and descision state across page views.
+You, the developer still need to display any dynamic prompting.
+if you need to update the state, say from a menu triggered prompt, you can do that as well.
 
 Check out these PWA Resources:
 
@@ -45,15 +50,6 @@ https://love2dev.com/blog/beforeinstallprompt/
             manualPrompt: null
         };
 
-    var _defaultSession = {
-        lastDisplayTime: 0, // last time we displayed the message
-        returningVisitor: false, // is this the first time you visit
-        displayCount: 0, // number of times the message has been shown
-        optedout: false, // has the user opted out
-        added: false, // has been actually added to the homescreen
-        sessions: 0,
-        nextSession: 0
-    };
 
     function cancelPrompt( evt ) {
 
@@ -88,6 +84,7 @@ https://love2dev.com/blog/beforeinstallprompt/
             return options.debug;
         }
 
+        //these should represent just about all browsers that offer an A2HS experience
         if ( platform.isChromium && native === undefined && !native ) {
             return "native";
         } else if ( platform.isFireFox ) {
@@ -109,7 +106,8 @@ https://love2dev.com/blog/beforeinstallprompt/
         }
     }
 
-
+    //this will execute a custom criteria method or just check a value to see if it returns true
+    //this gives the application developer a hook to add extra custom logic to the workflow
     function passCustomCriteria() {
 
         if (
@@ -135,7 +133,8 @@ https://love2dev.com/blog/beforeinstallprompt/
             return passCustom;
         }
 
-        return options.customCriteria;
+        //no custom criteria so just return true to not block the process
+        return true;
     }
 
     //performs various checks to see if we are cleared for prompting
